@@ -4,32 +4,35 @@ import cutitLogo from '../assets/cutit-logo.png';
 import background from '../assets/background-login.png';
 import axios from 'axios';
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
+
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-const handleLogin = async (e) => {
-  e.preventDefault();
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-  try {
-    const res = await axios.post('http://localhost:3001/api/login', {
-      email,
-      password,
-    });
+    try {
+      const res = await axios.post(`${apiUrl}/api/login`, {
+        email,
+        password,
+      });
 
-    if (res.data.success) {
-      localStorage.setItem('user', JSON.stringify(res.data.user));
-      navigate('/');
-    } else {
-      setError('Credenciales incorrectas');
+      if (res.data.success) {
+        localStorage.setItem('user', JSON.stringify(res.data.user));
+        navigate('/');
+      } else {
+        setError('Credenciales incorrectas');
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Error al iniciar sesión');
     }
-  } catch (err) {
-    console.error(err);
-    setError('Error al iniciar sesión');
-  }
-};
+  };
 
   return (
     <div

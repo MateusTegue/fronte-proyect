@@ -5,6 +5,9 @@ import cutitLogo from '../assets/cutit-logo.png';
 import UserIcon from "../components/UserIcon";
 import background from '../assets/background-ordenar.png';
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
+
 export default function Ordenar() {
   const [nombre, setNombre] = useState('Sierra circular');
   const [cantidad, setCantidad] = useState(1);
@@ -14,7 +17,7 @@ export default function Ordenar() {
     e.preventDefault();
 
     try {
-      const res = await axios.post('http://localhost:3001/api/pedido', {
+      const res = await axios.post(`${apiUrl}/api/productos`, {
         nombre,
         tipo: 'sierra',
         cantidad: parseInt(cantidad),

@@ -5,11 +5,14 @@ import userIcon from '../assets/user-icon.png';
 import background from '../assets/background-development.png';
 import { Link } from 'react-router-dom';
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
+
 export default function Development() {
   const [pedidos, setPedidos] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/pedido')
+    axios.get(`${apiUrl}/api/pedido`)
       .then(res => setPedidos(res.data))
       .catch(err => console.error("Error al cargar pedidos:", err));
   }, []);
